@@ -1,6 +1,7 @@
 # MouseMotionEffectプラグイン
 
 設定画面の枠の中を **マウスでドラッグするだけ** で、移動の軌跡とイージングを自動生成してアイテムを動かす映像エフェクトです。
+
 <img width="1920" height="1080" alt="Image" src="https://github.com/user-attachments/assets/2f8a0664-5cc1-4f50-9947-6fc9a5202ba4" />
 
 ## 使い方
