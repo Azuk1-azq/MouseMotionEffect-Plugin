@@ -1,0 +1,2 @@
+ここにYMM4のパスを入力 例:
+C:\Users\**\Documents\ymm4

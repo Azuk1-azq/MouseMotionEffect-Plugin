@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- YMM4 v4.56.1.0 の YukkuriMovieMaker.Plugin.dll は .NET 10 (net10.0) 向け -->
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>MouseMotion</RootNamespace>
+    <AssemblyName>MouseMotionEffect</AssemblyName>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+    <!-- YMM4 本体の DLL は出力にコピーしない(.ymme に同梱しないため) -->
+    <Ymm4Dir Condition="'$(Ymm4Dir)' == ''">$(YMM4DirPath)</Ymm4Dir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="$(Ymm4Dir)\YukkuriMovieMaker.Plugin.dll">
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="$(Ymm4Dir)\YukkuriMovieMaker.Controls.dll">
+      <Private>false</Private>
+    </Reference>
+    <!-- Plugin.dll の公開APIが参照する型(ID2D1Image 等)のため -->
+    <_Ymm4Libs Include="$(Ymm4Dir)\Vortice*.dll;$(Ymm4Dir)\SharpGen.Runtime*.dll;$(Ymm4Dir)\Newtonsoft.Json.dll;$(Ymm4Dir)\NAudio*.dll" />
+    <Reference Include="@(_Ymm4Libs)">
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="CheckYmm4Dir" BeforeTargets="ResolveAssemblyReferences" Condition="'$(Ymm4Dir)' == '' Or !Exists('$(Ymm4Dir)\YukkuriMovieMaker.Plugin.dll')">
+    <Error Text="YMM4 のフォルダを指定してください。例: dotnet build -c Release -p:Ymm4Dir=&quot;C:\YukkuriMovieMaker4&quot;  (YukkuriMovieMaker.Plugin.dll があるフォルダ)" />
+  </Target>
+
+</Project>
